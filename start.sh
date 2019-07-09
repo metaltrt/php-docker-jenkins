@@ -1,3 +1,6 @@
+#!/bin/bash
+source ./.env;
+
 docker-compose down;
 git checkout v1;
 docker-compose up -d;
