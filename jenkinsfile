@@ -1,0 +1,13 @@
+node {
+    stage('preparation') {
+        // Checkout the master branch of v1
+        git branch: 'v3', url: 'https://github.com/Akasam/samplephpwebsite'
+    }
+    stage("phpunit") {
+        // Run PHPUnit
+        sh 'vendor/bin/phpunit'
+    }
+    stage("dockerise"){
+        sh 'docker-compose'
+    }
+}
