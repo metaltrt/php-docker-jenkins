@@ -1,12 +1,16 @@
 node {
     stage('preparation') {
-        // Checkout the master branch of v1
         git branch: 'v1', url: 'https://github.com/Akasam/samplephpwebsite'
     }
-    stage("phpunit") {
-        // Run PHPUnit
-        sh 'vendor/bin/phpunit'
+
+    stage("composer") {
+        sh 'composer install'
     }
+    
+    stage("phpunit") {
+        sh 'vendor/bin/phpunit --bootstrap vendor/autoload.php tests/Test'
+    }
+
     stage("dockerise"){
         sh 'docker-compose up -d'
     }
